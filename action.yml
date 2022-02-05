@@ -1,8 +1,12 @@
-name: Electron Builder Action
-author: Samuel Meuli
+name: Electron Builder Action Pnpm
+author: njzydark
 description: GitHub Action for building and releasing Electron apps
 
 inputs:
+  package_manager:
+    description: package manager
+    required: false
+    default: "npm"
   github_token:
     description: GitHub authentication token
     required: true
