@@ -73,6 +73,7 @@ const runAction = () => {
 	const args = getInput("args") || "";
 	const maxAttempts = Number(getInput("max_attempts") || "1");
 	const packageManager = getInput("package_manager") || "npm";
+	const skipPackageManagerInstall = getInput("skip_package_manager_install") || false;
 
 	// TODO: Deprecated option, remove in v2.0. `electron-builder` always requires a `package.json` in
 	// the same directory as the Electron app, so the `package_root` option should be used instead
@@ -105,8 +106,10 @@ const runAction = () => {
 	// Disable console advertisements during install phase
 	setEnv("ADBLOCK", true);
 
-	log(`Installing dependencies using ${packageManager}`);
-	run(`${packageManager} install`, pkgRoot);
+	if(!skipPackageManagerInstall){
+		log(`Installing dependencies using ${packageManager}`);
+		run(`${packageManager} install`, pkgRoot);
+	}
 
 	// Run NPM build script if it exists
 	if (skipBuild) {
